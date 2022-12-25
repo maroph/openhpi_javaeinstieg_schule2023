@@ -1,0 +1,60 @@
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
+site_name: openHPI Java Schulversion Kurs 2023
+site_url: https://maroph.github.io/openhpi_javaeinstieg_schule2023/
+site_description: openHPI Java Einstiegskurs für Schüler
+site_author: Manfred Rosenboom
+
+repo_name: GitHub
+repo_url: https://github.com/maroph/openhpi_javaeinstieg_schule2023/
+edit_uri: "blob/main/docs"
+
+theme:
+    name: material
+    palette:
+        scheme: default
+    font: false
+    language: en
+    icon:
+        edit: material/pencil
+        repo: fontawesome/brands/github
+    features:
+        - navigation.indexes
+        - navigation.instant
+        - navigation.tracking
+        - navigation.tabs
+        - navigation.tabs.sticky
+
+nav:
+    - Home: index.md
+    - Module:
+        - module/module.md
+        - Modul 1: module/modul1.md
+        - Modul 2: module/modul2.md
+        - Modul 3: module/modul3.md
+        - Modul 4: module/modul4.md
+    - Info:
+        - About: info/about.md
+        - License: info/license.md
+
+docs_dir: docs
+site_dir: site
+
+use_directory_urls: false
+strict: true
+
+copyright: Copyright (c) 2023 <a href="https://github.com/maroph">Manfred Rosenboom</a>
+
+markdown_extensions:
+    - attr_list
+    - pymdownx.highlight:
+        anchor_linenums: true
+    - pymdownx.inlinehilite
+    - pymdownx.snippets
+    - pymdownx.superfences
+
+#####    - git-revision-date
+plugins:
+    - search:
+        lang: en
+        min_search_length: 3
+

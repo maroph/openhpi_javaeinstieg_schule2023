@@ -1,0 +1,16 @@
+.* export-ignore
+#
+* text=auto
+#
+*.bash text eol=lf
+*.java text
+*.md text
+*.yml text
+#
+*.class binary
+*.gif   binary
+*.ico   binary
+*.jar   binary
+*.jpg   binary
+*.png   binary
+*.zip   binary
