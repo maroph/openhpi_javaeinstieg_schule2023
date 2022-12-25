@@ -13,7 +13,7 @@ theme:
     palette:
         scheme: default
     font: false
-    language: en
+    language: de
     icon:
         edit: material/pencil
         repo: fontawesome/brands/github
@@ -32,9 +32,11 @@ nav:
         - Modul 2: module/modul2.md
         - Modul 3: module/modul3.md
         - Modul 4: module/modul4.md
+        - Exkurs Speicherverwaltung: module/exkurs.md
     - Info:
-        - About: info/about.md
-        - License: info/license.md
+        - Über diese Site: info/about.md
+        - Lizenz: info/license.md
+        - Links: info/links.md
 
 docs_dir: docs
 site_dir: site
