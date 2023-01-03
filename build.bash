@@ -131,6 +131,13 @@ then
     echo "${SCRIPT_NAME}: python -m pip freeze >requirements.txt"
     python -m pip freeze >${SCRIPT_DIR}/venv/requirements.txt || exit 1
 #
+    echo ""
+    echo ""
+    echo "----------"
+    grep -E 'mkdocs' ${SCRIPT_DIR}/venv/requirements.txt
+    echo "----------"
+    echo ""
+#
     exit 0
 fi
 #
