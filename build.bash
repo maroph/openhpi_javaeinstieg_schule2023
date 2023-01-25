@@ -2,15 +2,14 @@
 #
 #
 ##############################################
-# Copyright (c) 2022 by Manfred Rosenboom    #
+# Copyright (c) 2023 by Manfred Rosenboom    #
 #                                            #
 # This work is licensed under a MIT License. #
 # https://choosealicense.com/licenses/mit/   #
 ##############################################
 #
-SCRIPT_NAME=`basename $0`
-SCRIPT_DIR=`dirname $0`
-VERSION="${SCRIPT_NAME}  1  (19-DEC-2022)"
+declare -r SCRIPT_NAME=`basename $0`
+declare -r VERSION="${SCRIPT_NAME}  1  (25-JAN-2023)"
 #
 ###############################################################################
 #
@@ -21,8 +20,8 @@ export LANG="en_US.UTF-8"
 print_usage() {
     cat - <<EOT
 
-Usage: ${SCRIPT_NAME} [option(s)] [venv|deploy]
-       Call mkdocs to build the maroph.github.io related files
+Usage: ${SCRIPT_NAME} [option(s)] [venv|deploy|serve]
+       Call mkdocs to build the site related files
 
 Options:
   -h|--help       : show this help and exit
@@ -34,6 +33,8 @@ Options:
   venv          : create the required virtual environment and exit
   deploy        : create the site and push all data to branch gh-pages
                   (mkdocs gh-deploy)
+  serve         : Run the MkDocs builtin development server
+                  (mkdocs serve)
 
   Default: call 'mkdocs build'
 
@@ -41,6 +42,8 @@ EOT
 }
 #
 ###############################################################################
+#
+SCRIPT_DIR=`dirname $0`
 #
 cwd=`pwd`
 if [ "${SCRIPT_DIR}" = "." ]
@@ -53,6 +56,8 @@ else
 fi
 cwd=
 unset cwd
+#
+declare -r SCRIPT_DIR
 #
 ###############################################################################
 #
@@ -93,6 +98,21 @@ do
 #
     shift 1
 done
+#
+###############################################################################
+#
+if [ "$1" != "" ]
+then
+    case "$1" in
+        venv)   ;;
+        deploy) ;;
+        serve)  ;;
+        *)
+            echo "${SCRIPT_NAME}: '$1' : unknown argument"
+            exit 1
+            ;;
+    esac
+fi
 #
 ###############################################################################
 #
@@ -209,6 +229,23 @@ if [ "$1" = "deploy" ]
 then
     echo "${SCRIPT_NAME}: mkdocs gh-deploy"
     mkdocs gh-deploy || exit 1
+    echo ""
+    exit 0
+fi
+#
+###############################################################################
+#
+if [ "$1" = "serve" ]
+then
+    echo "${SCRIPT_NAME}: mkdocs serve"
+    mkdocs serve &
+    echo "#!/bin/bash" >${SCRIPT_DIR}/mkdocs.shut
+    echo "kill -15 $!" >>${SCRIPT_DIR}/mkdocs.shut
+    echo "rm ${SCRIPT_DIR}/mkdocs.shut" >>${SCRIPT_DIR}/mkdocs.shut
+    chmod 700 ${SCRIPT_DIR}/mkdocs.shut
+    sleep 1
+    echo ""
+    echo "shutdown MkDocs server: ${SCRIPT_DIR}/mkdocs.shut"
     echo ""
     exit 0
 fi
